@@ -1,0 +1,25 @@
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: web_app/backend/Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+    volumes:
+      - ./sessions.json:/app/sessions.json
+    restart: always
+
+  frontend:
+    build:
+      context: .
+      dockerfile: web_app/frontend/Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
