@@ -13,7 +13,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ sessions, currentSessionId, on
     return (
         <div className="w-64 glass-panel flex flex-col h-full border-r border-white/10 hidden md:flex">
             <div className="p-4 border-b border-white/10">
-                <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+                <h1 className="text-xl font-bold text-white tracking-tight">
                     AI Council
                 </h1>
             </div>

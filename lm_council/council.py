@@ -79,13 +79,17 @@ class LanguageModelCouncil:
         )
 
         # ───── Fetch key-specific rate limits once ──────────
+        print("DEBUG: Fetching OpenRouter limits...")
         key_meta = requests.get(
             "https://openrouter.ai/api/v1/auth/key",
             headers={"Authorization": f"Bearer {api_key}"},
             timeout=10,
         ).json()["data"]["rate_limit"]
+        print(f"DEBUG: Limits fetched: {key_meta}")
 
-        max_calls = key_meta["requests"]  # 100
+        max_calls = key_meta.get("requests", 100)
+        if max_calls <= 0:
+            max_calls = 100 # Fallback for deprecated/unlimited
         interval_seconds = (
             10
             if key_meta["interval"].endswith("s")
